@@ -1,0 +1,142 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe4f0, #ead5ff);
+    color: #70265b;
+}
+
+header {
+    background: linear-gradient(90deg, #e754a6, #a64dca);
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    font-size: 35px;
+    margin: 5px;
+}
+
+header p {
+    font-size: 18px;
+}
+
+.titulo {
+    text-align: center;
+    color: #a12b78;
+    margin-top: 30px;
+}
+
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    padding: 20px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.producto {
+    background: white;
+    text-align: center;
+    padding: 12px;
+    border: 2px solid #f3b4da;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px #bd6caa55;
+}
+
+.producto img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.producto h3 {
+    color: #a12b78;
+    min-height: 38px;
+}
+
+.precio {
+    font-size: 19px;
+    font-weight: bold;
+    color: #7b35b5;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton-elegir {
+    background: #e754a6;
+}
+
+.boton-elegir:hover {
+    background: #c42c83;
+}
+
+.carrito {
+    background: white;
+    max-width: 900px;
+    width: 85%;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px #bd6caa55;
+}
+
+.carrito h2 {
+    color: #a12b78;
+}
+
+.carrito li {
+    margin: 12px 0;
+}
+
+.boton-pagar {
+    background: #7b35b5;
+}
+
+.boton-vaciar {
+    background: #ed526b;
+}
+
+.boton-completar {
+    background: #249b75;
+}
+
+#mensaje {
+    font-weight: bold;
+    color: #a12b78;
+}
+
+footer {
+    background: #a64dca;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 900px) {
+    .catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 500px) {
+    .catalogo {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 27px;
+    }
+}
