@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Formulario de Pago - Defne Nails Beauty</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffe4f0, #ead5ff);
+            color: #70265b;
+        }
+
+        .contenedor {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px #a64dca44;
+        }
+
+        h1 {
+            text-align: center;
+            color: #c42c83;
+            font-size: 28px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #7b35b5;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #a12b78;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e4a6d0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #d879b3;
+        }
+
+        .total {
+            margin-top: 25px;
+            padding: 18px;
+            background: #fce4f1;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #922b78;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .confirmar {
+            background: #a64dca;
+            color: white;
+        }
+
+        .confirmar:hover {
+            background: #8438a8;
+        }
+
+        .volver {
+            display: block;
+            margin-top: 15px;
+            padding: 13px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background: #e754a6;
+            border-radius: 10px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #a12b78;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>💅 DEFNE NAILS BEAUTY</h1>
+    <p class="subtitulo">Formulario de pago</p>
+
+    <hr>
+
+    <h2>Datos del cliente</h2>
+
+    <form id="formulario-pago">
+
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre"
+               placeholder="Escribe tu nombre completo" required>
+
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo"
+               placeholder="ejemplo@correo.com" required>
+
+        <label for="telefono">Número de teléfono:</label>
+        <input type="tel" id="telefono" name="telefono"
+               placeholder="Ej. 8091234567" required>
+
+        <label for="direccion">Dirección:</label>
+        <textarea id="direccion" name="direccion" rows="3"
+                  placeholder="Escribe tu dirección" required></textarea>
+
+        <label for="metodo">Método de pago:</label>
+        <select id="metodo" name="metodo" required>
+            <option value="">Selecciona un método</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Transferencia bancaria">Transferencia bancaria</option>
+            <option value="Tarjeta">Tarjeta de crédito o débito</option>
+        </select>
+
+        <div class="total">
+            Total a pagar:
+            <div id="total-pago">RD$0</div>
+        </div>
+
+        <button type="submit" class="confirmar">
+            Confirmar pedido
+        </button>
+
+    </form>
+
+    <a href="catalogo.html" class="volver">
+        Volver al catálogo
+    </a>
+
+    <div id="resultado" aria-live="polite"></div>
+
+</div>
+
+<footer>
+    <p>Gracias por elegir Defne Nails Beauty 💗</p>
+</footer>
+
+<script>
+    // Recuperar el total enviado desde el carrito.
+    const totalGuardado = localStorage.getItem("totalCompra");
+    const total = Number(totalGuardado) || 0;
+
+    document.getElementById("total-pago").textContent =
+        "RD$" + total.toLocaleString("es-DO");
+
+    document.getElementById("formulario-pago")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        if (total <= 0) {
+            document.getElementById("resultado").textContent =
+                "No hay un pedido válido. Regresa al catálogo y selecciona tus diseños.";
+            return;
+        }
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const metodo = document.getElementById("metodo").value;
+
+        if (!nombre || !correo || !telefono || !metodo) {
+            document.getElementById("resultado").textContent =
+                "Completa todos los campos obligatorios.";
+            return;
+        }
+
+        document.getElementById("resultado").innerHTML =
+            "<h2>¡Pedido registrado en esta página!</h2>" +
+            "<p>Cliente: " + escaparHTML(nombre) + "</p>" +
+            "<p>Correo: " + escaparHTML(correo) + "</p>" +
+            "<p>Método de pago: " + escaparHTML(metodo) + "</p>" +
+            "<p>Total del pedido: RD$" +
+            total.toLocaleString("es-DO") + "</p>" +
+            "<p>Este formulario no procesa pagos reales. " +
+            "Debes coordinar el pago con el negocio.</p>";
+    });
+
+    function escaparHTML(texto) {
+        return texto.replace(/[&<>"']/
